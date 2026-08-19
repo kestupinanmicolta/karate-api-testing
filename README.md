@@ -55,3 +55,5 @@ El reporte HTML se genera en: `build/karate-reports/karate-summary.html`
 | `/users` | GET, POST | Gestión de usuarios |
 | `/posts` | GET, POST, PUT, PATCH, DELETE | Gestión de posts |
 | `/comments` | GET | Gestión de comentarios |
+
+<!-- lastupdate: 2026-08-18 21:18 -->

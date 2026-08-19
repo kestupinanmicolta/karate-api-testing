@@ -13,6 +13,9 @@ concurrency:
   group: pages
   cancel-in-progress: false
 
+env:
+  ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -41,11 +44,11 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4
         with:
           name: karate-report
           path: public
-          if-no-files-found: ignore
       - name: Fallback if no report
         if: always()
         run: |

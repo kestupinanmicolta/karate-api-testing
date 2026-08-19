@@ -33,7 +33,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: karate-report
-          path: build/karate-reports/
+          path: |
+            build/reports/karate/
+            build/karate-reports/
           if-no-files-found: ignore
 
   deploy:
@@ -49,10 +51,18 @@ jobs:
         with:
           name: karate-report
           path: public
-      - name: Fallback if no report
+      - name: Restructure report
         if: always()
         run: |
           mkdir -p public
+          # Karate may output reports in different subdirectories
+          if [ -d public/karate-reports ] && [ -f public/karate-reports/index.html ]; then
+            cp -r public/karate-reports/* public/
+            rm -rf public/karate-reports
+          elif [ -d public/karate ] && [ -f public/karate/index.html ]; then
+            cp -r public/karate/* public/
+            rm -rf public/karate
+          fi
           if [ ! -f public/index.html ]; then
             echo '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Karate Report</title>' > public/index.html
             echo '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">' >> public/index.html

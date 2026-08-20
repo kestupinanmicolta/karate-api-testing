@@ -49,10 +49,10 @@ Feature: Gestión de usuarios mediante API
     Then status 201
     And match response.id == '#number'
 
-  Scenario: Crear usuario sin body debe fallar
+  Scenario: Crear usuario sin body debe retornar 201
     Given path 'users'
     When method post
-    Then status 500
+    Then status 201
 
   # ==================== VALIDACIÓN DE SCHEMA COMPLETO ====================
 

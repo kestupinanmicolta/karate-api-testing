@@ -37,6 +37,9 @@ jobs:
           mkdir -p public
           if [ -d build/karate-reports ]; then
             cp -r build/karate-reports/* public/
+            if [ -f public/karate-summary.html ] && [ ! -f public/index.html ]; then
+              cp public/karate-summary.html public/index.html
+            fi
           elif [ -d build/reports/tests/test ]; then
             cp -r build/reports/tests/test/* public/
           fi

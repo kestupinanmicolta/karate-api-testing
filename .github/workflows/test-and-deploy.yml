@@ -35,25 +35,29 @@ jobs:
         if: always()
         run: |
           mkdir -p public
-          if [ -d build/reports/tests/test ]; then
+          if [ -d build/karate-reports ]; then
+            cp -r build/karate-reports/* public/
+          elif [ -d build/reports/tests/test ]; then
             cp -r build/reports/tests/test/* public/
           fi
           if [ ! -f public/index.html ]; then
             cat > public/index.html << 'HTMLEOF'
-          <!DOCTYPE html>
-          <html lang="es">
-          <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-          <title>Karate API Test Report</title>
-          <style>
-          *{margin:0;padding:0;box-sizing:border-box}
-          body{font-family:'Segoe UI',system-ui,sans-serif;background:#0d1117;color:#e6edf3;display:flex;justify-content:center;align-items:center;min-height:100vh}
-          .card{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:2rem;text-align:center;max-width:400px}
-          h1{font-size:1.5rem;margin-bottom:.5rem}p{color:#8b949e;margin-bottom:1rem}
-          a{display:inline-block;background:#238636;color:#fff;padding:.6rem 1.5rem;border-radius:8px;text-decoration:none;font-weight:600}
-          </style></head>
-          <body><div class="card"><h1>Karate API Testing</h1><p>Tests executed successfully.</p>
-          <a href="https://github.com/kestupinanmicolta/karate-api-testing">View Source</a></div></body></html>
-          HTMLEOF
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Karate API Test Report</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#0d1117;color:#e6edf3;display:flex;justify-content:center;align-items:center;min-height:100vh}
+.card{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:2rem;text-align:center;max-width:400px}
+h1{font-size:1.5rem;margin-bottom:.5rem}p{color:#8b949e;margin-bottom:1rem}
+a{display:inline-block;background:#238636;color:#fff;padding:.6rem 1.5rem;border-radius:8px;text-decoration:none;font-weight:600}
+</style></head>
+<body><div class="card"><h1>Karate API Testing</h1><p>Tests executed successfully.</p>
+<a href="https://github.com/kestupinanmicolta/karate-api-testing">View Source</a></div></body></html>
+HTMLEOF
           fi
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
